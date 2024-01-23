@@ -1,7 +1,9 @@
 import 'dart:async';
 
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lenter/screens/search_page.dart';
 import 'package:lenter/widgets/button.dart';
 import 'package:lenter/widgets/const.dart';
 import 'package:flutter/rendering.dart';
@@ -14,6 +16,11 @@ class LandingPage extends StatefulWidget {
 }
 
 class _LandingPageState extends State<LandingPage> {
+  TextEditingController _usernameController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
+  bool boolCheckBox = false;
+
+  final scaffoldKey = GlobalKey<ScaffoldState>();
   List<Widget> cards =[];
   late final PageController pageController;
   int pageNo = 0;
@@ -287,124 +294,271 @@ class _LandingPageState extends State<LandingPage> {
   Widget build(BuildContext context) {
     final media = MediaQuery.of(context);
 
-    return Container(
-      color: Constant.blackPrimary,
-      child: Column(
-        children: [
-          SizedBox(height: 40),
-          Container(
-            child: Image.asset(scale: 2,'assets/logo.png'),
-          ),
-          SizedBox(height: 20),
-          SizedBox(
-            height: media.size.height/2+30,
-            child: PageView.builder(
-              controller: pageController,
-              onPageChanged: (index){
-                pageNo = index;
-                setState(() { });
-              },
-              itemBuilder: (_, index){
-                Widget cardContain;
-
-                if (index == 0){
-                  cardContain = initCard()[0];
-                } else if (index == 1){
-                  cardContain = initCard()[1];
-                } else if (index == 2){
-                  cardContain = initCard()[2];
-                } else{
-                  cardContain = initCard()[0];
-                }
-
-                return AnimatedBuilder(
-                  animation: pageController,
-                  builder: (ctx, child){
-                    return child!;
-                  },
-                  child: GestureDetector(
-                    onPanDown: (d) {
-                      carasouelTimer?.cancel();
-                      carasouelTimer = null;
-                    },
-                    onPanCancel: () {
-                      carasouelTimer = getTimer();
-                    },
-                    child: cardContain
-                  ),
-                );
-              },
-            itemCount: 3,
+    return Scaffold(
+      body: Container(
+        color: Constant.blackPrimary,
+        child: ListView(
+          children: [
+            Container(
+              margin: EdgeInsets.only(top: 25),
+              height: 120,
+              child: Image.asset(scale: 2,'assets/logo.png'),
             ),
-          ),
-          SizedBox(height: 12,),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: List.generate(
-              3,
-              (index) => GestureDetector(
-                onTap: () {
+            SizedBox(
+              height: 768/2+30,
+              child: PageView.builder(
+                controller: pageController,
+                onPageChanged: (index){
                   pageNo = index;
                   setState(() { });
                 },
-                child: Container(
-                  margin: const EdgeInsets.all(7.0),
-                  child: pageNo == index
-                  ? SizedBox(
-                    width: 56.0,
-                    height: 5.0,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(36.0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          gradient: Constant.gradientColor,
-                          boxShadow: [
-                            BoxShadow(color: Colors.black12, offset: Offset(3.0, 6.0), blurRadius: 10.0),
-                          ],
-                        ),
-                      ),
+                itemBuilder: (_, index){
+                  Widget cardContain;
+
+                  if (index == 0){
+                    cardContain = initCard()[0];
+                  } else if (index == 1){
+                    cardContain = initCard()[1];
+                  } else if (index == 2){
+                    cardContain = initCard()[2];
+                  } else{
+                    cardContain = initCard()[0];
+                  }
+
+                  return AnimatedBuilder(
+                    animation: pageController,
+                    builder: (ctx, child){
+                      return child!;
+                    },
+                    child: GestureDetector(
+                      onPanDown: (d) {
+                        carasouelTimer?.cancel();
+                        carasouelTimer = null;
+                      },
+                      onPanCancel: () {
+                        carasouelTimer = getTimer();
+                      },
+                      child: cardContain
                     ),
-                  )
-                  : SizedBox(
-                      width: 26.0,
+                  );
+                },
+              itemCount: 3,
+              ),
+            ),
+            SizedBox(height: 12,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: List.generate(
+                3,
+                (index) => GestureDetector(
+                  onTap: () {
+                    pageNo = index;
+                    setState(() { });
+                  },
+                  child: Container(
+                    margin: const EdgeInsets.all(7.0),
+                    child: pageNo == index
+                    ? SizedBox(
+                      width: 56.0,
                       height: 5.0,
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(36.0),
                         child: Container(
                           decoration: BoxDecoration(
-                            color: Colors.white,
+                            gradient: Constant.gradientColor,
                             boxShadow: [
                               BoxShadow(color: Colors.black12, offset: Offset(3.0, 6.0), blurRadius: 10.0),
                             ],
                           ),
                         ),
                       ),
+                    )
+                    : SizedBox(
+                        width: 26.0,
+                        height: 5.0,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(36.0),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              boxShadow: [
+                                BoxShadow(color: Colors.black12, offset: Offset(3.0, 6.0), blurRadius: 10.0),
+                              ],
+                            ),
+                          ),
+                        ),
+                    )
                   )
-                )
+                ),
               ),
             ),
-          ),
-          SizedBox(height: 20,),
-          Padding(
-            padding: EdgeInsets.symmetric(vertical: 16.0),  // Adjust the vertical spacing
-            child: PrimaryButtonActive(
-              width: media.size.width/2,  // Adjust width based on your layout
-              height: 40,  // Adjust height based on your layout
-              isText: true,
-              isIcon: false,
-              text: "Login",
-              tapFunction: () => fungsi(context),
+            SizedBox(height: 20,),
+            Padding(
+              padding: EdgeInsets.fromLTRB(100,16,100,0),  // Adjust the vertical spacing
+              child: PrimaryButtonActive(
+                width: media.size.width/2,  // Adjust width based on your layout
+                height: 40,  // Adjust height based on your layout
+                isText: true,
+                isIcon: false,
+                text: "Login",
+                tapFunction: () {
+                  showModalBottomSheet<void>(
+                    // enableDrag: false,
+                    backgroundColor: Colors.transparent,
+                    isScrollControlled: true,
+                    context: context,
+                    builder: (BuildContext context) {
+                      return GestureDetector(
+                        // onPanDown: (details){
+                        //   Navigator.pop(context);
+                        // },
+                        child: Container(
+                          height: media.size.height/1.2,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.only(topLeft: Radius.circular(50), topRight: Radius.circular(50))
+                          ),
+                          child:Padding(
+                            padding: EdgeInsets.fromLTRB(20, 30, 20, 7),
+                            child:ListView(
+                              children: [
+                                Center(
+                                  child: Text("Login",
+                                    style: GoogleFonts.poppins(
+                                      fontSize: 32,
+                                      color: Constant.accentPrimary,
+                                      fontWeight: FontWeight.w700,
+                                    )
+                                  ),
+                                ),
+                                SizedBox(height: 50,),
+                                TextFormField(
+                                  controller: _usernameController,
+                                  decoration: InputDecoration(
+                                    labelText: "Username",
+                                    prefixIcon: const Padding(padding: EdgeInsets.only(left:20, right: 10), child: Icon(Icons.person)),
+                                    
+                                    focusColor: Constant.accentPrimary,
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                      
+                                    )
+                                  ),
+                                ),
+                                SizedBox(height: 30,),
+                                TextFormField(
+                                  controller: _passwordController,
+                                  obscureText: true,
+                                  decoration: InputDecoration(
+                                    labelText: "Password",
+                                    prefixIcon: const Padding(padding: EdgeInsets.only(left:20, right: 10), child: Icon(Icons.lock)),
+                                    
+                                    focusColor: Constant.accentPrimary,
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                      
+                                    )
+                                  ),
+                                ),
+                                SizedBox(height: 15,),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Checkbox(activeColor: Constant.accentPrimary, value: !boolCheckBox, onChanged: (value){
+                                          setState(() {
+                                            boolCheckBox == false
+                                              ?boolCheckBox = true
+                                              :boolCheckBox = false;
+                                            
+                                          });
+                                        }),
+                                        Text("Remember me",
+                                          style: GoogleFonts.poppins(
+                                            fontSize: 14,
+                                            color: Constant.blackPrimary,
+                                            fontWeight: FontWeight.w400,
+                                          )
+                                        ),
+                                      ],
+                                    ),
+                                    RichText(
+                                      text: TextSpan(
+                                        recognizer: TapGestureRecognizer()..onTap=(){print("User press forget password");},
+                                        text: "Forget Password",
+                                        style: GoogleFonts.poppins(
+                                          fontSize: 14,
+                                          color: Constant.accentPrimary,
+                                          fontWeight: FontWeight.w400,
+                                          decoration: TextDecoration.underline
+                                        )
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                SizedBox(height: 25,),
+                                PrimaryButtonActive(
+                                  width: media.size.width,  // Adjust width based on your layout
+                                  height: 40,  // Adjust height based on your layout
+                                  isText: true,
+                                  isIcon: false,
+                                  text: "Login",
+                                  tapFunction: () => Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(builder: (context) => SearchPage()),
+                                    )
+                                ),
+                                SizedBox(height: 25,),
+                                Center(
+                                  child: Text("or continue with",
+                                    style: GoogleFonts.poppins(
+                                      fontSize: 14,
+                                      color:Colors.grey[600],
+                                      fontWeight: FontWeight.w300,
+                                    )
+                                  ),
+                                ),
+                                SizedBox(height: 15,),
+                                Container(
+                                  height: 20,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(Icons.facebook,
+                                        size: 20,
+                                        color: Colors.blue[800],
+                                      ),
+                                      Icon(Icons.g_mobiledata,
+                                      size: 20,
+                                        color: Colors.green[800],
+                                        )
+                                    ],
+                                  )
+                                )
+                              ],
+                            ),
+                          )
+                        )
+                      );
+                    }
+                  );
+                }
+              )
             ),
-          ),
-          SecondaryButtonActive(
-              width: media.size.width/2,  // Adjust width based on your layout
-              height: 40,  // Adjust height based on your layout
-              isText: true,
-              isIcon: false,
-              text: "Register",
-              tapFunction: () => fungsi(context),
-            ),
-        ]
+            Padding( 
+            padding: EdgeInsets.fromLTRB(100,16,100,20),
+              child: SecondaryButtonActive(
+                width: media.size.width/2,  // Adjust width based on your layout
+                height: 40,  // Adjust height based on your layout
+                isText: true,
+                isIcon: false,
+                text: "Register",
+                tapFunction: () => fungsi(context),
+              ),
+            )
+          ]
+        )
       )
     );
   }
