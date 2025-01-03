@@ -1,16 +1,5 @@
-# lenter
+## About this project
 
-A new Flutter project.
+The Book Music Project allows users to read books while enjoying music. The project uses a Django backend (currently relying on a local API) to fetch book and music objects. As my first Flutter project, I concentrated on the front end, meticulously slicing the prototype app to achieve 99% accuracy with Figma design prototypes.
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+https://github.com/user-attachments/assets/bea2e306-88ce-480f-8221-724e5079a03e
