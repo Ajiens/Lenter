@@ -9,7 +9,7 @@ class FetchBook{
     // print("masuk ke sini");
     // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
     var url = Uri.parse(
-        'http://localhost:8000/api/books/');
+        'http://10.0.2.2:8000/api/books/');
         
     var response = await http.get(
       url,

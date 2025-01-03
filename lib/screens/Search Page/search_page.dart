@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:lenter/screens/forYou_page.dart';
-import 'package:lenter/screens/genre_page.dart';
+import 'package:lenter/screens/Search Page/search_book.dart';
+import 'forYou_page.dart';
+import 'genre_page.dart';
 import 'package:lenter/widgets/const.dart';
 
-import '../models/book.dart';
-import '../api/book-api.dart';
+import '../../models/book.dart';
+import '../../api/book-api.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -75,7 +76,8 @@ class _SearchPageState extends State<SearchPage> {
         automaticallyImplyLeading: false,
         title: GestureDetector(
           onTap: () {
-            print("Masuk ke halaman search");
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => SearchBook(bookList: _bookList,)));
           },
           child: Container(
             margin: EdgeInsets.only(top: 14, bottom: 14),

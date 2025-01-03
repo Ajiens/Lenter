@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:lenter/screens/User Page/profile_page.dart';
 
-import 'package:lenter/screens/account_page.dart';
 import 'package:lenter/screens/home_page.dart';
-import 'package:lenter/screens/music_page.dart';
-import 'package:lenter/screens/search_page.dart';
+import 'package:lenter/screens/Music Page/music_page.dart';
+import 'package:lenter/screens/Search Page/search_page.dart';
 import 'package:lenter/widgets/const.dart';
 
 class MainInitial extends StatefulWidget {
@@ -19,13 +19,13 @@ class MainInitial extends StatefulWidget {
 class _MainInitialState extends State<MainInitial> {
   bool _showFab = true;
   late PageController _pageController;
-  int current = 1;
+  int current = 0;
 
   final AudioPlayerHelper musicPlayer = AudioPlayerHelper();
 
   @override
   void initState(){
-    _pageController = PageController(initialPage: 1);
+    _pageController = PageController(initialPage: 0);
     super.initState();
   }
 
@@ -72,11 +72,11 @@ class _MainInitialState extends State<MainInitial> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.home,
+                        Icon(Icons.search,
                           size: 32,
                           color: (current == 0)?Constant.accentPrimary:Color(0xFF7E7D7F),
                         ),
-                        Text("Home",
+                        Text("Search",
                           style: GoogleFonts.poppins(
                             fontSize: 12,
                             fontWeight: FontWeight.w400,
@@ -96,11 +96,11 @@ class _MainInitialState extends State<MainInitial> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.search,
+                        Icon(Icons.headphones,
                           size: 32,
                           color: (current == 1)?Constant.accentPrimary:Color(0xFF7E7D7F),
                         ),
-                        Text("Search",
+                        Text("Music",
                           style: GoogleFonts.poppins(
                             fontSize: 12,
                             fontWeight: FontWeight.w400,
@@ -120,39 +120,15 @@ class _MainInitialState extends State<MainInitial> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.headphones,
-                          size: 32,
-                          color: (current == 2)?Constant.accentPrimary:Color(0xFF7E7D7F),
-                        ),
-                        Text("Music",
-                          style: GoogleFonts.poppins(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w400,
-                            color: (current == 2)?Constant.accentPrimary:Color(0xFF7E7D7F)
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        _pageController.jumpToPage(3);
-                        _showFab = true;
-                      });
-                    },
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
                         Icon(Icons.person,
                           size: 32,
-                          color: (current == 3)?Constant.accentPrimary:Color(0xFF7E7D7F),
+                          color: (current == 2)?Constant.accentPrimary:Color(0xFF7E7D7F),
                         ),
                         Text("Account",
                           style: GoogleFonts.poppins(
                             fontSize: 12,
                             fontWeight: FontWeight.w400,
-                            color: (current == 3)?Constant.accentPrimary:Color(0xFF7E7D7F)
+                            color: (current == 2)?Constant.accentPrimary:Color(0xFF7E7D7F)
                           ),
                         )
                       ],
@@ -186,10 +162,9 @@ class _MainInitialState extends State<MainInitial> {
             });
           },
           children: [
-            HomePage(),
             SearchPage(),
             MusicPage(playerHelper: musicPlayer,),
-            AccountPage(),
+            ProfilePage(),
           ],
         ),
       )
@@ -204,10 +179,9 @@ class AudioPlayerHelper extends AudioPlayer{
   AudioPlayer get player => playerSong;
   int get getSongID => songID;
 
-  int setSongID(int newID){
+  void setSongID(int newID){
     int songIdBefore = songID;
     songID = newID;
-    return songIdBefore;
   }
 
 }

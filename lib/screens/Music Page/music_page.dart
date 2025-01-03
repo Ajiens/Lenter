@@ -168,7 +168,10 @@ class _MusicPageState extends State<MusicPage> {
                                     gradient: Constant.gradientColor,
                                     borderRadius: BorderRadius.circular(70)
                                   ),
-                                  child: Icon((widget.playerHelper.getSongID == 0)?Icons.play_arrow_rounded:Icons.pause_outlined, color: Colors.white, size: 25,),
+                                  child: Icon((widget.playerHelper.getSongID == 0)
+                                    ?Icons.play_arrow_rounded
+                                    :Icons.pause_outlined ,
+                                  color: Colors.white, size: 25,),
                                 )
                               )
 

@@ -31,23 +31,23 @@ class ForYou extends StatelessWidget {
           scrollDirection: Axis.vertical,
           children: [
             SizedBox(height: 12,),
-            Container(
-              height: 105,
+            // Container(
+            //   height: 105,
               
-              child: 
+            //   child: 
             
-            PageView.builder(
-              itemCount: adsList.length,
-              pageSnapping: true,
-              controller: _pageController,
-              itemBuilder: (context, pagePosition) {
-                return Container(
-                  margin: EdgeInsets.only(left: 20, right: 20),
-                  child:adsList[pagePosition],
-                );
-              }
-            )
-            ),
+            // PageView.builder(
+            //   itemCount: adsList.length,
+            //   pageSnapping: true,
+            //   controller: _pageController,
+            //   itemBuilder: (context, pagePosition) {
+            //     return Container(
+            //       margin: EdgeInsets.only(left: 20, right: 20),
+            //       child:adsList[pagePosition],
+            //     );
+            //   }
+            // )
+            // ),
             BestSection(
               bookList: bookList, 
               header: "Best Drama 2022", 

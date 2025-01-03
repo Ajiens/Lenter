@@ -16,5 +16,5 @@ class Constant{
             begin: Alignment.centerLeft,
             end: Alignment.centerRight,);
   
-  static String endPoint = "http://localhost:8000";
+  static String endPoint = "https://alwantaka.pythonanywhere.com";
 }

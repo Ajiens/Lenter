@@ -34,7 +34,7 @@ class GenrePage extends StatelessWidget {
             child: Wrap(
               spacing: 15,
               runSpacing: 15,
-              alignment: WrapAlignment.spaceBetween,
+              alignment: WrapAlignment.center,
               runAlignment: WrapAlignment.spaceBetween,
               direction: Axis.horizontal,
               children: [

@@ -20,7 +20,7 @@ class MusicCard extends StatefulWidget {
 }
 
 class _MusicCardState extends State<MusicCard> {
-  int test = 0;
+  bool isPlaying = false; 
 
   void playSong(Song songArg){
     widget.playerHelper.setSongID(songArg.id);
@@ -96,10 +96,10 @@ class _MusicCardState extends State<MusicCard> {
                                 setState(() {
                                   if (widget.playerHelper.getSongID == 0){
                                     playSong(song);
-                                    widget.playerHelper.setSongID(song.id);
+                                    isPlaying = true;
                                   }else{
                                     pauseSong(song);
-                                    widget.playerHelper.setSongID(0);
+                                    isPlaying=false;
                                   } 
                                 });
                               },
@@ -111,9 +111,9 @@ class _MusicCardState extends State<MusicCard> {
                                   gradient: Constant.gradientColor,
                                   borderRadius: BorderRadius.circular(70)
                                 ),
-                                child:Icon((widget.playerHelper.getSongID == 0 &&  widget.playerHelper.getSongID == song.id)
-                                  ?Icons.play_arrow_rounded
-                                  :Icons.pause_outlined,
+                                child:Icon((widget.playerHelper.getSongID == song.id)
+                                  ?Icons.pause_outlined
+                                  :Icons.play_arrow_rounded,
                                 color: Colors.white, size: 25,),
                               )
                             )

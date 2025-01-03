@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lenter/models/book.dart';
-import 'package:lenter/screens/book_description.dart';
+import 'package:lenter/screens/Search%20Page/book_description.dart';
 
 class BookCard extends StatelessWidget {
   Book bookData;

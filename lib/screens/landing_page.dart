@@ -3,7 +3,8 @@ import 'dart:async';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:lenter/screens/search_page.dart';
+import 'package:lenter/screens/Search Page/search_page.dart';
+import 'package:lenter/screens/main_initial.dart';
 import 'package:lenter/widgets/button.dart';
 import 'package:lenter/widgets/const.dart';
 import 'package:flutter/rendering.dart';
@@ -185,7 +186,7 @@ class _LandingPageState extends State<LandingPage> {
                                       "“Think before you speak. Read before you think.” ",
                                       textAlign: TextAlign.left,
                                         style: GoogleFonts.poppins(
-                                          fontSize: 28,
+                                          fontSize: 22,
                                           color: Colors.white,
                                           fontWeight: FontWeight.w700,
                                         ),
@@ -249,16 +250,16 @@ class _LandingPageState extends State<LandingPage> {
                             height:_height/2-30,
                             width: _width,
                             child: Padding(
-                              padding: EdgeInsets.fromLTRB(30, 0, 25, 0),
+                              padding: EdgeInsets.fromLTRB(25, 0, 25, 0),
                               child: Column(
                                 children: [
                                   Text(
                                     "“The more that you read, the more things you will know. The more that you learn, the more places you’ll go.“ ",
                                     textAlign: TextAlign.left,
                                       style: GoogleFonts.poppins(
-                                        fontSize: 22,
+                                        fontSize: 20,
                                         color: Colors.white,
-                                        fontWeight: FontWeight.w700,
+                                        fontWeight: FontWeight.w600,
                                       ),
                                   ),
                                   SizedBox(height: 8,),
@@ -464,25 +465,19 @@ class _LandingPageState extends State<LandingPage> {
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Row(
-                                      children: [
-                                        Checkbox(activeColor: Constant.accentPrimary, value: !boolCheckBox, onChanged: (value){
-                                          setState(() {
-                                            boolCheckBox == false
-                                              ?boolCheckBox = true
-                                              :boolCheckBox = false;
-                                            
-                                          });
-                                        }),
-                                        Text("Remember me",
-                                          style: GoogleFonts.poppins(
-                                            fontSize: 14,
-                                            color: Constant.blackPrimary,
-                                            fontWeight: FontWeight.w400,
-                                          )
-                                        ),
-                                      ],
-                                    ),
+                                      Row(
+                                        children: [
+                                          CheckboxExample(),
+                                          Text("Remember me",
+                                            style: GoogleFonts.poppins(
+                                              fontSize: 14,
+                                              color: Constant.blackPrimary,
+                                              fontWeight: FontWeight.w400,
+                                            )
+                                          ),
+                                        ],
+                                      ),
+                                    
                                     RichText(
                                       text: TextSpan(
                                         recognizer: TapGestureRecognizer()..onTap=(){print("User press forget password");},
@@ -506,7 +501,7 @@ class _LandingPageState extends State<LandingPage> {
                                   text: "Login",
                                   tapFunction: () => Navigator.pushReplacement(
                                         context,
-                                        MaterialPageRoute(builder: (context) => SearchPage()),
+                                        MaterialPageRoute(builder: (context) => MainInitial()),
                                     )
                                 ),
                                 SizedBox(height: 25,),
@@ -521,18 +516,39 @@ class _LandingPageState extends State<LandingPage> {
                                 ),
                                 SizedBox(height: 15,),
                                 Container(
-                                  height: 20,
+                                  margin: EdgeInsets.symmetric(horizontal: 40),
+                                  height: 50,
                                   child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       Icon(Icons.facebook,
-                                        size: 20,
+                                        size: 50,
                                         color: Colors.blue[800],
                                       ),
-                                      Icon(Icons.g_mobiledata,
-                                      size: 20,
-                                        color: Colors.green[800],
-                                        )
+                                      ClipRRect(
+                                        borderRadius: BorderRadius.circular(20), // Optional: add border radius
+                                        child: Image.asset(
+                                          "assets/google.png",
+                                          fit: BoxFit.cover, // Optional: set fit property to cover
+                                          height: 40, width: 40, 
+                                        ),
+                                      ),
+                                      ClipRRect(
+                                        borderRadius: BorderRadius.circular(20), // Optional: add border radius
+                                        child: Image.asset(
+                                          "assets/twitter.png",
+                                          fit: BoxFit.cover, // Optional: set fit property to cover
+                                          height: 40, width: 40, 
+                                        ),
+                                      ),
+                                      ClipRRect(
+                                        borderRadius: BorderRadius.circular(20), // Optional: add border radius
+                                        child: Image.asset(
+                                          "assets/github.png",
+                                          fit: BoxFit.cover, // Optional: set fit property to cover
+                                          height: 40, width: 40, 
+                                        ),
+                                      ),
                                     ],
                                   )
                                 )
@@ -560,6 +576,32 @@ class _LandingPageState extends State<LandingPage> {
           ]
         )
       )
+    );
+  }
+}
+
+
+class CheckboxExample extends StatefulWidget {
+  const CheckboxExample({super.key});
+
+  @override
+  State<CheckboxExample> createState() => _CheckboxExampleState();
+}
+
+class _CheckboxExampleState extends State<CheckboxExample> {
+  bool isChecked = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Checkbox(
+      checkColor: Colors.white,
+      activeColor: Constant.accentPrimary,
+      value: isChecked,
+      onChanged: (bool? value) {
+        setState(() {
+          isChecked = value!;
+        });
+      },
     );
   }
 }
